@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <link type="text/css" rel="stylesheet" href="css/SijogaLogin.css" />
+        <title>SIJOGA</title>
+    </h:head>
+    <h:body>       
+        <h:form id="formLogin">
+            <p:growl />
+            <p:fieldset legend="SIJOGA">
+                <h2>Login</h2>
+                <p:inputText placeholder="Email" id="email" value="#{loginMb.email}" required="true" requiredMessage="Digite o seu email" validatorMessage="Informe um email válido" style="width: 90%; margin-bottom: 1vh">
+                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>                        
+                </p:inputText> 
+                <p:password  placeholder="Senha" value="#{loginMb.senha}" style="width: 90%; margin-bottom: 1vh"
+                             required="true" requiredMessage="Digite a senha"/>
+                <p:selectOneMenu value="#{loginMb.tipoLogin}" style="margin-bottom: 2vh; font-size: small">
+                    <f:selectItem itemLabel="Advogado" itemValue="1" />
+                    <f:selectItem itemLabel="Juiz" itemValue="2" />
+                    <f:selectItem itemLabel="Parte" itemValue="3" />
+                </p:selectOneMenu>
+                <br />
+                <div style="text-align: center">
+                    <p:commandButton value="Entrar" action="#{loginMb.efetuaLogin}" update="formLogin" style="font-size: smaller;" />                    
+                </div>
+                <br />
+                <a href="CadastroAdvogado.jsf">Novo Advogado</a>
+                <a href="Advogado/AdvogadoTemplate.jsf">Teste</a>
+            </p:fieldset>
+        </h:form>        
+    </h:body>
+</html>
+

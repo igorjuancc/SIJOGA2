@@ -1,0 +1,20 @@
+html{
+    background-image: url("back/login.jpg");
+    background-size: cover;
+}
+
+.ui-fieldset{
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    width: 23vw;
+    height: 50vh;
+    text-align: center;
+    margin-left: 37vw;
+    margin-top: 20vh;
+    border: none;
+}
+
+.ui-fieldset-content > table{
+    width: 100%;
+}
+

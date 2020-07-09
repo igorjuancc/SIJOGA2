@@ -1,0 +1,24 @@
+html{
+    background-image: url("back/cadastroAdvogado.jpg"); 
+    background-size: 100%;
+}
+
+body{
+    margin: 0;
+}
+
+.boxCadastro{
+    background-color: rgba(255,255,255,0.9);
+    width: 60vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 1vh;
+    border-radius: 10px;
+    margin-left: 20vw;
+    margin-top: 10vh;
+}
+
+h3, h2{
+    margin: 0;
+    border-bottom: 1px solid;
+}

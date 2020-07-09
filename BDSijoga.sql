@@ -43,15 +43,17 @@ CREATE TABLE tb_advogado(
 	FOREIGN KEY (id_advogado) REFERENCES tb_pessoa (id_pessoa)
 );
 
-CREATE TABLE tb_morador(
-	id_morador SERIAL PRIMARY KEY NOT NULL,
-	tipo_morador INT NOT NULL,
-	senha_morador VARCHAR(100),
-	apartamento_morador INT NOT NULL,
-	status_morador INT NOT NULL,
-	data_aprovacao_morador DATE,
-	FOREIGN KEY (id_morador) REFERENCES tb_pessoa (id_pessoa),
-	FOREIGN KEY (apartamento_morador) REFERENCES tb_apartamento (id_apartamento)
+CREATE TABLE tb_juiz(
+	id_juiz SERIAL PRIMARY KEY NOT NULL,
+	senha_juiz VARCHAR(100) NOT NULL,
+	reg_oab_juiz INT NOT NULL,
+	FOREIGN KEY (id_juiz) REFERENCES tb_pessoa (id_pessoa)
+);
+
+CREATE TABLE tb_parte(
+	id_parte SERIAL PRIMARY KEY NOT NULL,
+	senha_parte VARCHAR(100) NOT NULL,
+	FOREIGN KEY (id_parte) REFERENCES tb_pessoa (id_pessoa)
 );
 
 

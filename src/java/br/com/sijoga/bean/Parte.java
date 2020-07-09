@@ -13,8 +13,8 @@ import javax.persistence.Table;
 @Table(name="tb_parte")
 public class Parte extends Pessoa implements Serializable{
     private String senha;
-    private List<Processo> promovente;
-    private List<Processo> promovido;
+    //private List<Processo> promovente;
+    //private List<Processo> promovido;
 
     public Parte() {
     }
@@ -29,7 +29,7 @@ public class Parte extends Pessoa implements Serializable{
     }
     
     
-    public List<Processo> getPromovente() {
+    /*public List<Processo> getPromovente() {
         return promovente;
     }
 
@@ -76,5 +76,5 @@ public class Parte extends Pessoa implements Serializable{
             return false;
         }
         return true;
-    }    
+    }    */
 }

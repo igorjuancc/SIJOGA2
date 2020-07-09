@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/Advogado/AdvogadoTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="titulo">Advogado - Novo Processo</ui:define>
+    <ui:define name="corpo">   
+
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Cadastro de Processo</h1>
+        </div>
+                
+        <form class="formuser" name="formuser" id="formulario" method="POST" onsubmit="return validar()"> 
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Titulo"/>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <input type="text" class="form-control cpf" onchange="getUser('infoPromovente')" id="cpfPromovente" name="cpf" placeholder="Cpf do promovente" required="true"/>
+                </div>
+
+            </div>
+            <div class="form-row" id="infoPromovente" style="display: none;">
+                <p>Nome: Fernanda
+                    <br/>Sobrenome: Carvalho
+                    <br/>Estado civil: solteira
+                    <br/>Profissão: desenvolvedora
+                    <br/>CPF: 105.168.799-36
+                    <br/>Endereço: Rua Guilherme Weigert, número: 2245, cep: 82720-000
+                </p>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <input type="text" class="form-control cpf" onchange="getUser('infoPromovido')" id="cpfPromovido" name="cpf" placeholder="Cpf do promovido" required="true"/>
+                </div>
+            </div>
+            <div class="form-row" id="infoPromovido" style="display: none;">
+                <p>Nome: Gisele
+                    <br/>Sobrenome: Gomes
+                    <br/>Estado civil: casada
+                    <br/>Profissão: desenvolvedora
+                    <br/>CPF: 105.135.599-36
+                    <br/>Endereço: Rua Alcydes Vieira Arcoverde, número: 1245, cep: 82315-000
+                </p>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <input type="file" accept="application/pdf"/>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <div class="col-md-7 text-center">
+                        <button type="submit" class="btn btn-dark">Cadastrar</button>  
+                    </div>        
+                </div>
+            </div>
+
+        </form>
+
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="login.xhtml">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+</ui:composition>

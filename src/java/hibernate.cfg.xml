@@ -51,5 +51,7 @@ Contributor(s):
     <mapping class="br.com.sijoga.bean.Estado"/>
     <mapping class="br.com.sijoga.bean.Cidade"/>
     <mapping class="br.com.sijoga.bean.Endereco"/>
+    <mapping class="br.com.sijoga.bean.Parte"/>
+    <mapping class="br.com.sijoga.bean.Juiz"/>
   </session-factory>
 </hibernate-configuration>

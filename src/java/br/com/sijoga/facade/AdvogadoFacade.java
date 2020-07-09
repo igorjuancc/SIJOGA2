@@ -46,7 +46,7 @@ public class AdvogadoFacade {
             }
             if (advogado.getRegistroOab() == 0) {
                 mensagens.add("Numero de registro na OAB inválido");
-            } else if (advogadoDao.buscarAdvogadoOab(advogado.getRegistroOab()) != null) {
+            } else if ((advogadoDao.buscarAdvogadoOab(advogado.getRegistroOab()) != null) || (JuizFacade.buscarJuizOab(advogado.getRegistroOab()) != null)) {
                 mensagens.add("Número de registro da OAB já cadastrado");
             }
 
@@ -69,5 +69,18 @@ public class AdvogadoFacade {
             throw e;
         }
     }
-
+    
+    public static Advogado buscarAdvogadoOab(int regOab) throws DaoException {
+        try {
+            return advogadoDao.buscarAdvogadoOab(regOab);
+        } catch (DaoException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            System.out.println("****Problema ao buscar advogado por OAB [Facade]****" + e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
 }

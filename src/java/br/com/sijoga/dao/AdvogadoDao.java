@@ -39,9 +39,9 @@ public class AdvogadoDao {
                 session.close();
             }
         } catch (HibernateException e) {
-            throw new DaoException("****Problema ao cadastrar novo advogado [Hibernate]****", e);
+            throw new DaoException("****Problema ao buscar advogado por OAB [Hibernate]****", e);
         } catch (Exception e) {
-            throw new DaoException("****Problema ao cadastrar novo advogado [DAO]****", e);
+            throw new DaoException("****Problema ao buscar advogado por OAB [DAO]****", e);
         }
     } 
     

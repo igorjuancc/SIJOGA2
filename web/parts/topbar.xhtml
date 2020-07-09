@@ -1,0 +1,44 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    <h:form>
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+            </button>
+
+            <div class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <select id="estados" class="form-control bg-light border-0 small" name="search">
+                    <option selected="selected">Search for...</option>
+                    <option value="">Todos os processos</option>
+                    <option value="">Processos abertos</option>
+                    <option value="">Processos encerrados</option>
+                    <option value="">Processos como promovido</option>
+                    <option value="">Processos como promovente</option>
+                    <option value="">Processos ganhos como promovido</option>
+                    <option value="">Processos ganhos como promovente</option>                                
+                </select>
+            </div>
+
+            <div class="dropdown-menu-right" aria-labelledby="userDropdown">
+                <!-- <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
+                </a>   -->
+                <p:commandButton type="button" icon="ui-icon-extlink">
+                    <p:ajax event="click" listener="#{loginMb.logout}" />
+                    <p:confirm header="Sair" message="Sair do sistema?" />                    
+                </p:commandButton>
+            </div>       
+            
+        </nav> 
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"  />
+            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />                
+        </p:confirmDialog>
+    </h:form>
+
+</ui:composition>

@@ -10,21 +10,25 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
+import javax.inject.Inject;
 
 public class VerificaLogin implements PhaseListener {
-
+    @Inject
+    private LoginMb usuario;
+    
     @Override
     public void afterPhase(PhaseEvent event) {
         try {
             FacesContext ctx = FacesContext.getCurrentInstance();
             String pagina = ctx.getViewRoot().getViewId();                           //Nome da pagina atual
             Application app = ctx.getApplication();
-            LoginMb usuario = app.evaluateExpressionGet(ctx, "#{loginMb}", LoginMb.class);
             ExternalContext ctxExt = FacesContext.getCurrentInstance().getExternalContext();
             int opcCase = 0;
 
             if (usuario.getAdvogado().getId() != 0) {
                 opcCase = 1;
+            } else if (usuario.getJuiz().getId() != 0) {
+                opcCase = 2;                
             }
 
             switch (opcCase) {
@@ -34,8 +38,14 @@ public class VerificaLogin implements PhaseListener {
                     }
                     break;
                 case 1:
-                    if ((!pagina.equals("/Advogado/InicioAdvogado.xhtml")) && (!pagina.equals("/Advogado/CadastroCliente.xhtml")) && (!pagina.equals("/Advogado/CadastroProcesso.xhtml")) && (!pagina.equals("/ErroPage.xhtml"))) {
+                    if ((!pagina.equals("/Advogado/InicioAdvogado.xhtml")) && (!pagina.equals("/Advogado/CadastroCliente.xhtml")) && (!pagina.equals("/Advogado/CadastroProcesso.xhtml")) && (!pagina.equals("/Advogado/VisualizarProcesso.xhtml"))
+                         && (!pagina.equals("/Advogado/VisualizarFase.xhtml")) && (!pagina.equals("/Advogado/NovaFase.xhtml")) && (!pagina.equals("/ErroPage.xhtml"))) {
                         ctxExt.redirect(ctxExt.getRequestContextPath() + "/Advogado/InicioAdvogado.jsf");
+                    }
+                    break;
+                case 2:
+                    if ((!pagina.equals("/Juiz/InicioJuiz.xhtml")) && (!pagina.equals("/Juiz/VisualizarProcesso.xhtml"))) {
+                        ctxExt.redirect(ctxExt.getRequestContextPath() + "/Juiz/InicioJuiz.jsf");                        
                     }
                     break;
             }

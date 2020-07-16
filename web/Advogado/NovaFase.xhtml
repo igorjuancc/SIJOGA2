@@ -8,10 +8,10 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
-    <ui:define name="titulo">Advogado - Novo Processo</ui:define>
-    <ui:define name="corpo">   
+    <ui:define name="titulo">Advogado - Nova fase processo</ui:define>
+    <ui:define name="corpo"> 
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Cadastro de Processo</h1>            
+            <h1 class="h3 mb-0 text-gray-800">Nova Fase Processo #{processoMb.processo.id}</h1>            
         </div>
 
         <h:form id="formProcesso" class="formuser" enctype="multipart/form-data">
@@ -19,43 +19,18 @@
                 <div class="form-row">                 
                     <div class="form-group col-md-6">
                         <p:messages id="mensagem"  showDetail="false" />
+                        <p:outputLabel for="" value="Tipo" />
+                        <p:selectOneRadio value="#{processoMb.faseProcesso.tipo}" required="true" requiredMessage="Defina o tipo de fase a ser criada" >
+                            <f:selectItem itemValue="1" itemLabel="Informativa" />
+                            <f:selectItem itemValue="2" itemLabel="Deliberativa" />                            
+                        </p:selectOneRadio>
                         <p:outputLabel for="titulo" value="Titulo" style="font-size: small"/>
                         <h:inputText a:placeholder="Título" class="form-control" id="titulo" value="#{processoMb.faseProcesso.titulo}" 
                                      required="true" requiredMessage="Insira um título" validatorMessage="Insira um titulo válido">
                             <f:validateRegex pattern="[a-z A-Z]{6,100}"/> 
                         </h:inputText> 
                     </div>                
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-md-3">
-                        <p:outputLabel for="advogadoPromovente" value="Advogado promovente" style="font-size: small"/>
-                        <h:selectOneMenu id="advogadoPromovente" class="form-control" disabled="true">   
-                            <f:selectItem itemLabel="#{processoMb.processo.advogadoPromovente.nome}" />
-                        </h:selectOneMenu>                     
-                    </div>
-                    <div class="form-group col-md-3">
-                        <p:outputLabel for="promovente" value="Cliente promovente" style="font-size: small"/>
-                        <h:selectOneMenu value="#{processoMb.processo.promovente}" id="promovente" converter="omnifaces.SelectItemsConverter" class="form-control">                            
-                            <f:selectItems value="#{processoMb.clientes}" var="cliente" itemLabel="#{cliente.nome}" itemValue="#{cliente}" />
-                        </h:selectOneMenu> 
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-md-3">
-                        <p:outputLabel for="advogadoPromovido" value="Advogado promovido" style="font-size: small"/>
-                        <h:selectOneMenu id="advogadoPromovido" value="#{processoMb.processo.advogadoPromovido}" converter="omnifaces.SelectItemsConverter"  class="form-control">   
-                            <f:selectItems value="#{processoMb.advogados}" var="advPromovido" itemValue="#{advPromovido}" itemLabel="#{advPromovido.nome}" />
-                        </h:selectOneMenu>                     
-                    </div>
-                    <div class="form-group col-md-3">
-                        <p:outputLabel for="promovido" value="Cliente promovido" style="font-size: small"/>
-                        <h:selectOneMenu value="#{processoMb.processo.promovido}" id="promovido" converter="omnifaces.SelectItemsConverter" class="form-control">                            
-                            <f:selectItems value="#{processoMb.clientes}" var="cliente2" itemLabel="#{cliente2.nome}" itemValue="#{cliente2}" />
-                        </h:selectOneMenu> 
-                    </div>
-                </div>
+                </div>                    
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <p:outputLabel for="descricao" value="Descrição" style="font-size: small"/>
@@ -76,15 +51,15 @@
                                       invalidFileMessage="Somente arquivos .jpg, .png ou .gif" sizeLimit="2097152" invalidSizeMessage="Tamanho Máximo 2MB" />    
                         <br />
                         <div style=" text-align: center">
-                            <p:commandButton value="Cadastrar" actionListener="#{processoMb.cadastrarProcesso}" style="font-size: medium" update="formProcesso">
-                                <p:confirm header="Salvar" message="Salvar novo processo?"  />
+                            <p:commandButton value="Cadastrar" actionListener="#{processoMb.cadastrarFaseProcesso}" style="font-size: medium" update="formProcesso">
+                                <p:confirm header="Salvar" message="Salvar nova fase de processo?"  />
                             </p:commandButton>                
                         </div>
                     </div>
                 </div>
             </p:panel>
             <p:panel id="cadastroConcluido" rendered="#{processoMb.cadastroConcluido}">
-                <h2>Cadastro de processo concluído, clique no botão para continuar...</h2><br />
+                <h2>Cadastro de fase de processo concluído, clique no botão para continuar...</h2><br />
                 <div style="text-align: right">
                     <p:linkButton  value="Continuar..." />                        
                 </div>                             

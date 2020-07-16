@@ -1,14 +1,21 @@
 package br.com.sijoga.util;
 
+import br.com.sijoga.bean.Processo;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.InputMismatchException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import org.primefaces.model.UploadedFile;
 
 public class SijogaUtil {
     //Validação CPF
@@ -134,5 +141,64 @@ public class SijogaUtil {
         } catch (Exception e) {
             return null;
         }
+    }
+    
+    //Salvar arquivo em pasta
+    public static Boolean salvarArquivo(UploadedFile arquivo, String local, String nomeArquivo) {
+        Boolean concluido = false;
+        FileOutputStream fos = null;
+        try {
+            File caminho = new File(local, nomeArquivo);
+            fos = new FileOutputStream(caminho);
+            fos.write(arquivo.getContents());
+            concluido = true;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(SijogaUtil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(SijogaUtil.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close();
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(SijogaUtil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return concluido;
+    }
+
+    //Excluir arquivo pasta
+    public static Boolean apagarImagem(String local, String nomeArquivo) {
+        try {
+            File pasta = new File(local, nomeArquivo);
+            pasta.delete();
+            return true;
+        } catch (Exception e) {
+            System.out.println("****Problemas ao apagar arquivo" + nomeArquivo + "****");
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public static String printStatusProcesso(Processo p) {
+        String rtn = "EM ABERTO";
+        try {            
+            if (p.getVencedor() != null) {
+                rtn = "ENCERRADO";
+            } else if ((p.getFases() != null) && (!p.getFases().isEmpty())) {
+                if (((p.getFases().get(p.getFases().size()-1)).getTipo() == 2)
+                        && ((p.getFases().get(p.getFases().size()-1)).getJustificativa() == null)) {
+                    rtn = "FASE DELIBERATIVA";                    
+                }                               
+            } 
+        } catch (Exception e) {
+            try {
+                SijogaUtil.mensagemErroRedirecionamento(e);
+            } catch (IOException ex) {
+                Logger.getLogger(SijogaUtil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }        
+        return rtn;
     }
 }

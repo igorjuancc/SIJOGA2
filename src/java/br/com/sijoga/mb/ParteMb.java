@@ -22,7 +22,7 @@ import javax.inject.Named;
 @Named(value = "parteMb")
 @ViewScoped
 public class ParteMb implements Serializable {
-
+    
     private String confirmaSenha;
     private Boolean cadastroConcluido;
     private Parte parte;

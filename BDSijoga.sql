@@ -56,6 +56,44 @@ CREATE TABLE tb_parte(
 	FOREIGN KEY (id_parte) REFERENCES tb_pessoa (id_pessoa)
 );
 
+CREATE TABLE tb_processo(
+	id_processo SERIAL PRIMARY KEY NOT NULL,
+	id_juiz_processo INT NOT NULL,
+	id_promovente_processo INT NOT NULL,
+	id_promovido_processo INT NOT NULL,
+	id_vencedor_processo INT,
+	id_advogado_promovente_processo INT NOT NULL,
+	id_advogado_promovido_processo INT NOT NULL,
+	dataHora_processo TIMESTAMP NOT NULL,
+	parecer_processo VARCHAR(255),
+	FOREIGN KEY (id_juiz_processo) REFERENCES tb_juiz (id_juiz),	
+	FOREIGN KEY (id_promovente_processo) REFERENCES tb_parte (id_parte),
+	FOREIGN KEY (id_promovido_processo) REFERENCES tb_parte (id_parte),
+	FOREIGN KEY (id_vencedor_processo) REFERENCES tb_parte (id_parte),
+	FOREIGN KEY (id_advogado_promovente_processo) REFERENCES tb_advogado (id_advogado),
+	FOREIGN KEY (id_advogado_promovido_processo) REFERENCES tb_advogado (id_advogado)
+);
+
+CREATE TABLE tb_documento(
+	id_documento SERIAL PRIMARY KEY NOT NULL,
+	ext_documento VARCHAR(5) NOT NULL	
+);
+
+CREATE TABLE tb_fase(
+	id_fase SERIAL PRIMARY KEY NOT NULL,
+	tipo_fase INT NOT NULL,
+	titulo_fase VARCHAR(100) NOT NULL,
+	desc_fase TEXT NOT NULL,
+	justi_fase VARCHAR(255),
+	dataHora_fase TIMESTAMP NOT NULL,
+	id_documento_fase INT,
+	id_advogado_fase INT NOT NULL,
+	id_processo_fase INT NOT NULL,
+	FOREIGN KEY (id_documento_fase) REFERENCES tb_documento (id_documento),
+	FOREIGN KEY (id_advogado_fase) REFERENCES tb_advogado (id_advogado),
+	FOREIGN KEY (id_processo_fase) REFERENCES tb_processo (id_processo)		
+);
+
 
 /* ================================================================================ */
 

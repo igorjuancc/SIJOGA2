@@ -18,14 +18,13 @@
 
         <li class="nav-item active">
 
-            <p:outputPanel rendered="#{loginMb.advogado.id != 0}">                
-                <a class="nav-link" href="tela_principal.xhtml">
-                    <i class="fas fa-home"></i>
-                    <span>Processos</span></a>
-
-                <a class="nav-link" href="relatorios.xhtml">
-                    <i class="fas fa-download"></i>
-                    <span>Relatórios</span></a>
+            <p:outputPanel rendered="#{loginMb.advogado.id != 0}">  
+                <h:link class="nav-link" value="Processos" outcome="InicioAdvogado">
+                    <i class="fas fa-home"></i>                    
+                </h:link>
+                <h:link class="nav-link" value="Relatorios" outcome="InicioAdvogado">
+                    <i class="fas fa-download"></i>                   
+                </h:link>
                 
                 <h:link class="nav-link" value="Novo Processo" outcome="CadastroProcesso">
                     <i class="fas fa-plus"></i>                    
@@ -34,6 +33,11 @@
                 <h:link class="nav-link" value="Novo cliente" outcome="CadastroCliente">
                     <i class="fas fa-plus"></i>                    
                 </h:link>                      
+            </p:outputPanel>
+            <p:outputPanel rendered="#{loginMb.juiz.id != 0}">  
+                <h:link class="nav-link" value="Processos" outcome="InicioJuiz">
+                    <i class="fas fa-home"></i>                    
+                </h:link>                    
             </p:outputPanel>
         </li>
     </ul>

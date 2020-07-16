@@ -3,22 +3,27 @@ package br.com.sijoga.bean;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@PrimaryKeyJoinColumn(name="id_parte")
-@Table(name="tb_parte")
-public class Parte extends Pessoa implements Serializable{
+@PrimaryKeyJoinColumn(name = "id_parte")
+@Table(name = "tb_parte")
+public class Parte extends Pessoa implements Serializable {
+
     private String senha;
-    //private List<Processo> promovente;
-    //private List<Processo> promovido;
+    private List<Processo> promovente;
+    private List<Processo> promovido;
+    private List<Processo> vencedor;
 
     public Parte() {
     }
-    
+
     @Column(name = "senha_parte")
     public String getSenha() {
         return senha;
@@ -27,9 +32,9 @@ public class Parte extends Pessoa implements Serializable{
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
-    
-    /*public List<Processo> getPromovente() {
+
+    @OneToMany(mappedBy = "promovente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<Processo> getPromovente() {
         return promovente;
     }
 
@@ -37,6 +42,7 @@ public class Parte extends Pessoa implements Serializable{
         this.promovente = promovente;
     }
 
+    @OneToMany(mappedBy = "promovido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Processo> getPromovido() {
         return promovido;
     }
@@ -45,12 +51,22 @@ public class Parte extends Pessoa implements Serializable{
         this.promovido = promovido;
     }
 
+    @OneToMany(mappedBy = "vencedor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<Processo> getVencedor() {
+        return vencedor;
+    }
+
+    public void setVencedor(List<Processo> vencedor) {
+        this.vencedor = vencedor;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.senha);
-        hash = 97 * hash + Objects.hashCode(this.promovente);
-        hash = 97 * hash + Objects.hashCode(this.promovido);
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.senha);
+        hash = 41 * hash + Objects.hashCode(this.promovente);
+        hash = 41 * hash + Objects.hashCode(this.promovido);
+        hash = 41 * hash + Objects.hashCode(this.vencedor);
         return hash;
     }
 
@@ -75,6 +91,9 @@ public class Parte extends Pessoa implements Serializable{
         if (!Objects.equals(this.promovido, other.promovido)) {
             return false;
         }
+        if (!Objects.equals(this.vencedor, other.vencedor)) {
+            return false;
+        }
         return true;
-    }    */
+    }
 }

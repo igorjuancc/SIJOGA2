@@ -83,4 +83,18 @@ public class AdvogadoFacade {
             throw e;
         }
     }
+    
+    public static List<Advogado> listaAdvogados() throws DaoException {
+        try {
+            return advogadoDao.listaAdvogados();
+        } catch (DaoException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            System.out.println("****Problema ao buscar lista de advogados [Facade]****" + e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
 }

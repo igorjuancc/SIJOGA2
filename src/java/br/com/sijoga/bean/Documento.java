@@ -33,7 +33,7 @@ public class Documento implements Serializable {
         this.id = id;
     }
     
-    @Column(name="extensao_documento")
+    @Column(name="ext_documento")
     public String getExtensao() {
         return extensao;
     }

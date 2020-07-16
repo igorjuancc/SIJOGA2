@@ -1,6 +1,5 @@
 package br.com.sijoga.facade;
 
-import br.com.sijoga.bean.Advogado;
 import br.com.sijoga.bean.Parte;
 import br.com.sijoga.dao.ParteDao;
 import br.com.sijoga.exception.DaoException;
@@ -61,6 +60,20 @@ public class ParteFacade {
             throw e;
         } catch (Exception e) {
             System.out.println("****Problemas ao cadastrar novo cliente [Facade]****" + e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    
+    public static List<Parte> listaClientes() throws DaoException {
+        try {
+            return parteDao.listaClientes();
+        } catch (DaoException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            System.out.println("****Problema ao buscar lista de clientes [Facade]****" + e);
             e.printStackTrace();
             throw e;
         }

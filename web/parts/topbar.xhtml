@@ -11,18 +11,20 @@
                 <i class="fa fa-bars"></i>
             </button>
 
-            <div class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                <select id="estados" class="form-control bg-light border-0 small" name="search">
-                    <option selected="selected">Search for...</option>
-                    <option value="">Todos os processos</option>
-                    <option value="">Processos abertos</option>
-                    <option value="">Processos encerrados</option>
-                    <option value="">Processos como promovido</option>
-                    <option value="">Processos como promovente</option>
-                    <option value="">Processos ganhos como promovido</option>
-                    <option value="">Processos ganhos como promovente</option>                                
-                </select>
-            </div>
+            <p:outputPanel rendered="#{(facesContext.viewRoot.viewId).equals('/Advogado/InicioAdvogado.xhtml')}" >
+                <div class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <h:selectOneMenu value="#{advogadoMb.opcFiltro}" class="form-control bg-light border-0 small" id="search">
+                        <f:selectItem itemValue="1" itemLabel="Todos os processos" />
+                        <f:selectItem itemValue="2" itemLabel="Processos abertos" />
+                        <f:selectItem itemValue="3" itemLabel="Processos encerrados" />
+                        <f:selectItem itemValue="4" itemLabel="Processos como promovido" />
+                        <f:selectItem itemValue="5" itemLabel="Processos como promovente" />
+                        <f:selectItem itemValue="6" itemLabel="Processos ganhos como promovido" />
+                        <f:selectItem itemValue="7" itemLabel="Processos ganhos como promovente" />
+                        <p:ajax event="change" listener="#{advogadoMb.listaProcessoAdvogado}" update="formTb:tabProcesso" />
+                    </h:selectOneMenu>
+                </div>                
+            </p:outputPanel>            
 
             <div class="dropdown-menu-right" aria-labelledby="userDropdown">
                 <!-- <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -33,7 +35,7 @@
                     <p:confirm header="Sair" message="Sair do sistema?" />                    
                 </p:commandButton>
             </div>       
-            
+
         </nav> 
         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
             <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"  />

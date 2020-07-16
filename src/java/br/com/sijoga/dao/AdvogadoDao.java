@@ -3,6 +3,7 @@ package br.com.sijoga.dao;
 import br.com.sijoga.bean.Advogado;
 import br.com.sijoga.exception.DaoException;
 import br.com.sijoga.util.HibernateUtil;
+import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -45,4 +46,22 @@ public class AdvogadoDao {
         }
     } 
     
+    public List<Advogado> listaAdvogados() throws DaoException {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            try {
+                session.beginTransaction();
+                Query select = session.createQuery("FROM Advogado a ORDER BY a.nome");
+                List<Advogado> advogados = select.list();
+                return advogados;
+            } finally {
+                session.getTransaction().commit();
+                session.close();
+            }
+        } catch (HibernateException e) {
+            throw new DaoException("****Problema ao buscar lista de advogados [Hibernate]****", e);
+        } catch (Exception e) {
+            throw new DaoException("****Problema ao buscar lista de advogados [DAO]****", e);
+        }        
+    }    
 }

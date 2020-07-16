@@ -1,6 +1,7 @@
 package br.com.sijoga.dao;
 
 import br.com.sijoga.bean.Advogado;
+import br.com.sijoga.bean.Juiz;
 import br.com.sijoga.exception.DaoException;
 import br.com.sijoga.util.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -23,9 +24,30 @@ public class LoginDao {
                 session.close();
             }
         } catch (HibernateException e) {
-            throw new DaoException("****Problema ao buscar login de usuário [Hibernate]****", e);
+            throw new DaoException("****Problema ao buscar login de usuário advogado [Hibernate]****", e);
         } catch (Exception e) {
-            throw new DaoException("****Problema ao buscar login de usuário [DAO]****", e);
+            throw new DaoException("****Problema ao buscar login de usuário advogado [DAO]****", e);
+        }        
+    }
+    
+    public Juiz loginJuiz(Juiz juiz) throws DaoException {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            try {
+                session.beginTransaction();
+                Query select = session.createQuery("FROM Juiz j WHERE j.email = :email AND j.senha = :senha");
+                select.setParameter("email", juiz.getEmail());
+                select.setParameter("senha", juiz.getSenha());
+                juiz = (Juiz) select.uniqueResult();
+                return juiz;                
+            } finally {
+                session.getTransaction().commit();
+                session.close();
+            }
+        } catch (HibernateException e) {
+            throw new DaoException("****Problema ao buscar login de usuário juiz [Hibernate]****", e);
+        } catch (Exception e) {
+            throw new DaoException("****Problema ao buscar login de usuário juiz [DAO]****", e);
         }        
     }
 }

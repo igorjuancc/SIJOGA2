@@ -17,8 +17,7 @@ import javax.persistence.Table;
 public class Juiz extends Pessoa implements Serializable {
     private String senha;
     private int registroOab;
-    //private List<Processo> promovente;
-    //private List<Processo> promovido;
+    private List<Processo> processos;
 
     public Juiz() {
     }
@@ -41,31 +40,21 @@ public class Juiz extends Pessoa implements Serializable {
         this.registroOab = registroOab;
     }
     
-    /*@OneToMany(mappedBy = "advPromovente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public List<Processo> getPromovente() {
-        return promovente;
+    @OneToMany(mappedBy = "juiz", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<Processo> getProcessos() {
+        return processos;
     }
 
-    public void setPromovente(List<Processo> promovente) {
-        this.promovente = promovente;
-    }
-    
-    //@OneToMany(mappedBy = "advPromovido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public List<Processo> getPromovido() {
-        return promovido;
-    }
-
-    public void setPromovido(List<Processo> promovido) {
-        this.promovido = promovido;
+    public void setProcessos(List<Processo> processos) {
+        this.processos = processos;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.senha);
-        hash = 79 * hash + this.registroOab;
-        hash = 79 * hash + Objects.hashCode(this.promovente);
-        hash = 79 * hash + Objects.hashCode(this.promovido);
+        hash = 19 * hash + Objects.hashCode(this.senha);
+        hash = 19 * hash + this.registroOab;
+        hash = 19 * hash + Objects.hashCode(this.processos);
         return hash;
     }
 
@@ -80,19 +69,16 @@ public class Juiz extends Pessoa implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Advogado other = (Advogado) obj;
+        final Juiz other = (Juiz) obj;
         if (this.registroOab != other.registroOab) {
             return false;
         }
         if (!Objects.equals(this.senha, other.senha)) {
             return false;
         }
-        if (!Objects.equals(this.promovente, other.promovente)) {
-            return false;
-        }
-        if (!Objects.equals(this.promovido, other.promovido)) {
+        if (!Objects.equals(this.processos, other.processos)) {
             return false;
         }
         return true;
-    }*/
+    }
 }

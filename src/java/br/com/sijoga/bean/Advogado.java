@@ -2,7 +2,6 @@ package br.com.sijoga.bean;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,8 +16,9 @@ import javax.persistence.Table;
 public class Advogado extends Pessoa implements Serializable {
     private String senha;
     private int registroOab;
-    //private List<Processo> promovente;
-    //private List<Processo> promovido;
+    private List<Processo> promovente;
+    private List<Processo> promovido;
+    private List<FaseProcesso> fasesProcesso;
 
     public Advogado() {
     }
@@ -41,7 +41,7 @@ public class Advogado extends Pessoa implements Serializable {
         this.registroOab = registroOab;
     }
     
-    /*@OneToMany(mappedBy = "advPromovente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "advogadoPromovente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Processo> getPromovente() {
         return promovente;
     }
@@ -50,7 +50,7 @@ public class Advogado extends Pessoa implements Serializable {
         this.promovente = promovente;
     }
     
-    //@OneToMany(mappedBy = "advPromovido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "advogadoPromovido", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Processo> getPromovido() {
         return promovido;
     }
@@ -58,14 +58,20 @@ public class Advogado extends Pessoa implements Serializable {
     public void setPromovido(List<Processo> promovido) {
         this.promovido = promovido;
     }
+    
+    @OneToMany(mappedBy = "advogado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<FaseProcesso> getFasesProcesso() {
+        return fasesProcesso;
+    }
+
+    public void setFasesProcesso(List<FaseProcesso> fasesProcesso) {
+        this.fasesProcesso = fasesProcesso;
+    }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.senha);
-        hash = 79 * hash + this.registroOab;
-        hash = 79 * hash + Objects.hashCode(this.promovente);
-        hash = 79 * hash + Objects.hashCode(this.promovido);
+        int hash = 5;
+        hash = 47 * hash + this.registroOab;
         return hash;
     }
 
@@ -84,15 +90,6 @@ public class Advogado extends Pessoa implements Serializable {
         if (this.registroOab != other.registroOab) {
             return false;
         }
-        if (!Objects.equals(this.senha, other.senha)) {
-            return false;
-        }
-        if (!Objects.equals(this.promovente, other.promovente)) {
-            return false;
-        }
-        if (!Objects.equals(this.promovido, other.promovido)) {
-            return false;
-        }
         return true;
-    }*/
+    }
 }

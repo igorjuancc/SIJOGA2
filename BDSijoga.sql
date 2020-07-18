@@ -26,13 +26,11 @@ CREATE TABLE tb_endereco(
 	id_endereco SERIAL PRIMARY KEY,
 	cep_endereco CHAR(8) NOT NULL,
 	id_cidade_endereco INT NOT NULL,
-	id_pessoa_endereco INT NOT NULL,
 	bairro_endereco VARCHAR(30) NOT NULL,
 	rua_endereco VARCHAR(100) NOT NULL,
 	nr_endereco INT NOT NULL,
 	comp_endereco VARCHAR(30),
-	FOREIGN KEY (id_cidade_endereco) REFERENCES tb_cidade (id_cidade),
-	FOREIGN KEY (id_pessoa_endereco) REFERENCES tb_pessoa (id_pessoa)
+	FOREIGN KEY (id_cidade_endereco) REFERENCES tb_cidade (id_cidade)
 );
 
 ALTER TABLE tb_pessoa ADD FOREIGN KEY (id_endereco_pessoa) REFERENCES tb_endereco(id_endereco);

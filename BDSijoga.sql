@@ -26,6 +26,7 @@ CREATE TABLE tb_endereco(
 	id_endereco SERIAL PRIMARY KEY,
 	cep_endereco CHAR(8) NOT NULL,
 	id_cidade_endereco INT NOT NULL,
+	id_pessoa_endereco INT NOT NULL,
 	bairro_endereco VARCHAR(30) NOT NULL,
 	rua_endereco VARCHAR(100) NOT NULL,
 	nr_endereco INT NOT NULL,

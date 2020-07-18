@@ -20,12 +20,15 @@ public class FaseProcessoFacade {
             List<String> mensagens = new ArrayList();
             Date dataHoje = new Date();
             faseProcesso.setDataHora(dataHoje);
-
+            
+            if ((faseProcesso.getProcesso().getFases() != null) && (!faseProcesso.getProcesso().getFases().isEmpty())) {
+                if ((faseProcesso.getProcesso().getFases().get(faseProcesso.getProcesso().getFases().size() - 1).getTipo() == 2)
+                        && (faseProcesso.getProcesso().getFases().get(faseProcesso.getProcesso().getFases().size() - 1).getJustificativa() == null)) {
+                    mensagens.add("Processo aguardando resposta do juiz");
+                }
+            } 
             if (faseProcesso.getProcesso().getVencedor() != null) {
                 mensagens.add("Processo já foi finalizado, impossivel adicionar novas fases!");
-            } else if ((faseProcesso.getProcesso().getFases().get(faseProcesso.getProcesso().getFases().size() - 1).getTipo() == 2)
-                    && (faseProcesso.getProcesso().getFases().get(faseProcesso.getProcesso().getFases().size() - 1).getJustificativa() == null)) {
-                mensagens.add("Processo aguardando resposta do juiz");
             } else {
                 if ((faseProcesso.getTipo() != 1) && (faseProcesso.getTipo() != 2)) {
                     mensagens.add("Fase de processo inválida");
@@ -104,7 +107,7 @@ public class FaseProcessoFacade {
             throw e;
         }
     }
-    
+
     public static void atualizarFaseProcesso(FaseProcesso fase) throws DaoException {
         try {
             faseProcessoDao.atualizarFaseProcesso(fase);

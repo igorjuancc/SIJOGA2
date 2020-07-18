@@ -118,7 +118,7 @@
                                     <tr style=" text-align: center">
                                         <td>
                                             <p:commandButton style=" font-size: medium" value="Intimação">
-
+                                                <p:ajax event="click" listener="#{processoMb.setRenderJuiz(3)}" update="dialogProcesso" oncomplete="PF('dialogProcesso').show()" />
                                             </p:commandButton>  
                                         </td>                                        
                                         <td>
@@ -182,8 +182,21 @@
                         </p:commandButton>                        
                     </div>                    
                 </p:panel>            
-                <p:panel rendered="false">
-
+                <p:panel rendered="#{processoMb.renderJuiz == 3}">
+                    <p:outputLabel for="promotor" value="Selecione o oficial de justiça:" /><br />
+                    <p:selectOneMenu id="promotor" value="#{processoMb.intimacao.oficial}" converter="omnifaces.SelectItemsConverter" disabled="#{processoMb.oficiais == null}" required="true" requiredMessage="Necessário indicar o Oficial de Justiça">
+                        <f:selectItems value="#{processoMb.oficiais}" var="oficial"  itemLabel="#{oficial.nome}" itemValue="#{oficial}" />                                              
+                    </p:selectOneMenu><br /><br />
+                    <p:outputLabel for="intimado" value="Intimado:" /><br />
+                    <p:selectOneMenu id="intimado" value="#{processoMb.intimado}" converter="omnifaces.SelectItemsConverter">
+                        <f:selectItem itemValue="#{processoMb.processo.promovente}" itemLabel="[PROMOVENTE] - #{processoMb.processo.promovente.nome}" />
+                        <f:selectItem itemValue="#{processoMb.processo.promovido}" itemLabel="[PROMOVIDO] - #{processoMb.processo.promovido.nome}" />                                                
+                    </p:selectOneMenu><br /><br />
+                    <div style="text-align: center">
+                        <p:commandButton value="Gerar" actionListener="#{processoMb.criarIntimacao}" update="formConfirma" >
+                            <p:confirm header="Intimação" message="Confirmar criação de intimação do processo?" />                        
+                        </p:commandButton>                        
+                    </div>                      
                 </p:panel>                  
             </h:form>                      
         </p:dialog>

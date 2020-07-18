@@ -4,8 +4,12 @@ import br.com.sijoga.bean.Advogado;
 import br.com.sijoga.bean.FaseProcesso;
 import br.com.sijoga.bean.Parte;
 import br.com.sijoga.bean.Processo;
+import br.com.sijoga.dto.EnderecoDto;
+import br.com.sijoga.dto.IntimacaoDto;
+import br.com.sijoga.dto.OficialDto;
 import br.com.sijoga.facade.AdvogadoFacade;
 import br.com.sijoga.facade.FaseProcessoFacade;
+import br.com.sijoga.facade.IntimacaoFacade;
 import br.com.sijoga.facade.ParteFacade;
 import br.com.sijoga.facade.ProcessoFacade;
 import br.com.sijoga.util.SijogaUtil;
@@ -38,6 +42,9 @@ public class ProcessoMb implements Serializable {
     private List<Advogado> advogados;
     private UploadedFile arquivo;
     private int renderJuiz;
+    private List<OficialDto> oficiais;
+    private IntimacaoDto intimacao;
+    private Parte intimado;
 
     @PostConstruct
     public void init() {
@@ -92,6 +99,9 @@ public class ProcessoMb implements Serializable {
                         int idProcesso = (int) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("idProcesso");
                         this.processo = ProcessoFacade.buscaProcessoId(idProcesso);
                         this.faseProcesso = this.processo.getFases().get(this.processo.getFases().size() - 1);
+                        this.oficiais = IntimacaoFacade.listaOficiais();
+                        this.intimacao = new IntimacaoDto();
+                        this.intimado = new Parte();
                     }
                     break;
             }
@@ -212,6 +222,43 @@ public class ProcessoMb implements Serializable {
         }
     }
 
+    public void criarIntimacao() {
+        try {
+            FacesMessage msg;
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            
+            this.intimacao.setCpf(this.intimado.getCpf());
+            this.intimacao.setEndereco(new EnderecoDto());
+            this.intimacao.getEndereco().setBairro(this.intimado.getEndereco().getBairro());
+            this.intimacao.getEndereco().setCep(this.intimado.getEndereco().getCep());            
+            this.intimacao.getEndereco().setCidade(this.intimado.getEndereco().getCidade().getId());
+            this.intimacao.getEndereco().setComplemento(this.intimado.getEndereco().getComplemento());
+            this.intimacao.getEndereco().setNumero(this.intimado.getEndereco().getNumero());
+            this.intimacao.getEndereco().setRua(this.intimado.getEndereco().getRua());
+            this.intimacao.setCpf(this.intimado.getCpf());
+            this.intimacao.setNome(this.intimado.getNome());
+            this.intimacao.setProcesso(this.processo.getId());
+            
+            List<String> mensagens = IntimacaoFacade.cadastrarIntimacao(this.intimacao);
+            if (!mensagens.isEmpty()) {
+                for (String print : mensagens) {
+                    msg = SijogaUtil.emiteMsg(print, 2);
+                    ctx.addMessage(null, msg);
+                }
+            } else {
+                ExternalContext ctxExt = FacesContext.getCurrentInstance().getExternalContext();
+                FacesContext.getCurrentInstance().getExternalContext().getFlash().put("idProcesso", this.processo.getId());
+                ctxExt.redirect(ctxExt.getRequestContextPath() + "/Juiz/VisualizarProcesso.jsf");                
+            }
+        } catch (Exception e) {
+            try {
+                SijogaUtil.mensagemErroRedirecionamento(e);
+            } catch (IOException ex) {
+                Logger.getLogger(ProcessoMb.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     public String printStatusProcesso(Processo p) {
         return SijogaUtil.printStatusProcesso(p);
     }
@@ -282,5 +329,29 @@ public class ProcessoMb implements Serializable {
 
     public void setRenderJuiz(int renderJuiz) {
         this.renderJuiz = renderJuiz;
+    }
+
+    public List<OficialDto> getOficiais() {
+        return oficiais;
+    }
+
+    public void setOficiais(List<OficialDto> oficiais) {
+        this.oficiais = oficiais;
+    }
+
+    public IntimacaoDto getIntimacao() {
+        return intimacao;
+    }
+
+    public void setIntimacao(IntimacaoDto intimacao) {
+        this.intimacao = intimacao;
+    }
+
+    public Parte getIntimado() {
+        return intimado;
+    }
+
+    public void setIntimado(Parte intimado) {
+        this.intimado = intimado;
     }
 }

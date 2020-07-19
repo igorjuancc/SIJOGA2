@@ -108,9 +108,14 @@ public class IntimacaoFacade {
             
             SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss"); 
             String str = fmt.format(intimacao.getDataHora());
-            
+            String str2 = "";
+            if (intimacao.getDataHoraExec() != null) {
+                str2 = fmt.format(intimacao.getDataHoraExec());                
+            }        
             String desc = "Intimação Judicial Nº" + Integer.toString(intimacao.getId()) + 
                           "<br />Data e hora da solicitação: " + str +
+                          "<br />Data e hora execução: " + str2 +
+                          "<br />Estado da execução: " + (intimacao.getStatus() ? "EXECUTADO" : "NÃO EXECUTADO") +
                           "<br />Juiz: " + fase.getProcesso().getJuiz().getNome() + " OAB: " + fase.getProcesso().getJuiz().getRegistroOab() +
                           "<br />Advogado Solicitante: " + fase.getAdvogado().getNome() + " OAB: " + Integer.toString(fase.getAdvogado().getRegistroOab()) +
                           "<br />Intimado: " + (fase.getProcesso().getPromovente().getCpf().equals(intimacao.getCpf()) ? fase.getProcesso().getPromovente().getNome() : fase.getProcesso().getPromovido().getNome()) +

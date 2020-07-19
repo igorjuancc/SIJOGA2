@@ -85,7 +85,7 @@ public class ProcessoFacade {
 
             if (mensagens.isEmpty()) {                
                 processo.setDataInicio(dataHoje);
-                processo.setJuiz(JuizFacade.buscarJuizOab(111111)); //Buscar juiz com menos processos em aberto
+                processo.setJuiz(JuizFacade.buscarJuizProcessos()); //Buscar juiz com menos processos em aberto
                 processo.getFases().remove(0);
                 processoDao.cadastrarProcesso(processo);
                 fase1.setProcesso(processo);

@@ -19,17 +19,23 @@
                 <h:dataTable id="tabProcesso" value="#{juizMb.processos}" var="processo" class="table table-bordered" >
                     <h:column>
                         <f:facet name="header" >Titulo</f:facet>  
-                            #{processo.fases.get(0).getTitulo()}
+                        <p:outputPanel style="#{juizMb.printStatusProcesso(processo) == 'FASE DELIBERATIVA' ? 'color: red' : ''}">
+                            #{processo.fases.get(0).getTitulo()}                            
+                        </p:outputPanel>                            
                     </h:column>
                     <h:column>
                         <f:facet name="header">Status</f:facet> 
-                            #{juizMb.printStatusProcesso(processo)}
+                        <p:outputPanel style="#{juizMb.printStatusProcesso(processo) == 'FASE DELIBERATIVA' ? 'color: red' : ''}">
+                            #{juizMb.printStatusProcesso(processo)}                            
+                        </p:outputPanel>                            
                     </h:column>
                     <h:column>
                         <f:facet name="header">Data de abertura</f:facet> 
-                        <h:outputText value="#{processo.dataInicio}">
-                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-                        </h:outputText> 
+                        <p:outputPanel style="#{juizMb.printStatusProcesso(processo) == 'FASE DELIBERATIVA' ? 'color: red' : ''}">
+                            <h:outputText value="#{processo.dataInicio}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                            </h:outputText> 
+                        </p:outputPanel>
                     </h:column>
                     <h:column>
                         <f:facet name="header">Ação</f:facet>                         

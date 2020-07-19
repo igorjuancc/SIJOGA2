@@ -69,7 +69,7 @@ public class JuizFacade {
             throw e;
         }
     }
-    
+
     public static Juiz buscarJuizOab(int regOab) throws DaoException {
         try {
             return juizDao.buscarJuizOab(regOab);
@@ -79,6 +79,40 @@ public class JuizFacade {
             throw e;
         } catch (Exception e) {
             System.out.println("****Problema ao buscar juiz por OAB [Facade]****" + e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static Juiz buscarJuizProcessos() throws DaoException {
+        try {
+            List<Juiz> juizes = juizDao.buscarJuizProcessos();
+            Juiz rtn = new Juiz();
+            
+            if (juizes != null) {
+                for (Juiz j : juizes) {
+                    j.setProcessos(ProcessoFacade.listaTodosProcessosJuiz(j));
+                }                
+            }
+
+            if (juizes != null) {
+                if (rtn.getId() == 0) {
+                    rtn = juizes.get(0);
+                }                
+                for (Juiz j : juizes) {
+                    if (j.getProcessos().size() < rtn.getProcessos().size()){
+                        rtn = j;
+                    }
+                }
+            }
+
+            return rtn;
+        } catch (DaoException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            System.out.println("****Problema ao buscar juiz por processo [Facade]****" + e);
             e.printStackTrace();
             throw e;
         }

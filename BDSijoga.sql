@@ -30,7 +30,8 @@ CREATE TABLE tb_endereco(
 	rua_endereco VARCHAR(100) NOT NULL,
 	nr_endereco INT NOT NULL,
 	comp_endereco VARCHAR(30),
-	FOREIGN KEY (id_cidade_endereco) REFERENCES tb_cidade (id_cidade)
+	FOREIGN KEY (id_cidade_endereco) REFERENCES tb_cidade (id_cidade),
+	FOREIGN KEY (id_pessoa_endereco) REFERENCES tb_pessoa (id_pessoa)
 );
 
 ALTER TABLE tb_pessoa ADD FOREIGN KEY (id_endereco_pessoa) REFERENCES tb_endereco(id_endereco);

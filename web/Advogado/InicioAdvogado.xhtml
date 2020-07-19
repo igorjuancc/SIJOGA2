@@ -18,18 +18,30 @@
 
                 <h:dataTable id="tabProcesso" value="#{advogadoMb.processos}" var="processo" class="table table-bordered" >
                     <h:column>
-                        <f:facet name="header" >Titulo</f:facet>  
+                        <f:facet name="header" >Titulo</f:facet> 
+                        <p:outputPanel style="#{advogadoMb.printStatusProcesso(processo) == 'FASE DELIBERATIVA' ? 'color: red' : ''}">
                             #{processo.fases.get(0).getTitulo()}
+                        </p:outputPanel>
                     </h:column>
                     <h:column>
-                        <f:facet name="header">Status</f:facet> 
-                            #{processo.vencedor == null ? "EM ABERTO" : "ENCERRADO"}
+                        <p:outputPanel style="#{advogadoMb.printStatusProcesso(processo) == 'FASE DELIBERATIVA' ? 'color: red' : ''}">
+                            <f:facet name="header">Status</f:facet> 
+                                #{advogadoMb.printStatusProcesso(processo)}
+                        </p:outputPanel>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Parte</f:facet> 
+                        <p:outputPanel style="#{advogadoMb.printStatusProcesso(processo) == 'FASE DELIBERATIVA' ? 'color: red' : ''}">
+                            #{processo.advogadoPromovente.id == advogadoMb.login.advogado.id ? "PROMOVENTE" : "PROMOVIDA"}
+                        </p:outputPanel>
                     </h:column>
                     <h:column>
                         <f:facet name="header">Data de abertura</f:facet> 
-                        <h:outputText value="#{processo.dataInicio}">
-                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-                        </h:outputText> 
+                        <p:outputPanel style="#{advogadoMb.printStatusProcesso(processo) == 'FASE DELIBERATIVA' ? 'color: red' : ''}">
+                            <h:outputText value="#{processo.dataInicio}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                            </h:outputText> 
+                        </p:outputPanel>
                     </h:column>
                     <h:column>
                         <f:facet name="header">Ação</f:facet>                         

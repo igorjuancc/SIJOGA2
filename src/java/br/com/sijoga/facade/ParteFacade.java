@@ -42,7 +42,7 @@ public class ParteFacade {
                 mensagens.add("Email já cadastrado");
             }
             if (SijogaUtil.idade(parte.getDataNascimento()) < 18) {
-                mensagens.add("Advogado não pode ser menor de idade");
+                mensagens.add("Cliente não pode ser menor de idade");
             }
 
             if (mensagens.isEmpty()) {

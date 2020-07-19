@@ -42,7 +42,7 @@ public class JuizFacade {
                 mensagens.add("Email já cadastrado");
             }
             if (SijogaUtil.idade(juiz.getDataNascimento()) < 18) {
-                mensagens.add("Advogado não pode ser menor de idade");
+                mensagens.add("Juiz não pode ser menor de idade");
             }
             if (juiz.getRegistroOab() == 0) {
                 mensagens.add("Numero de registro na OAB inválido");

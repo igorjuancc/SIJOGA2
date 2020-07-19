@@ -2,6 +2,7 @@ package br.com.sijoga.mb;
 
 import br.com.sijoga.bean.Advogado;
 import br.com.sijoga.bean.Juiz;
+import br.com.sijoga.bean.Parte;
 import br.com.sijoga.facade.LoginFacade;
 import br.com.sijoga.util.Seguranca;
 import br.com.sijoga.util.SijogaUtil;
@@ -15,15 +16,16 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
-
 @Named
 @SessionScoped
 public class LoginMb implements Serializable {
+
     private String email;
     private String senha;
     private int tipoLogin;
     private Advogado advogado = new Advogado();
     private Juiz juiz = new Juiz();
+    private Parte parte = new Parte();
 
     public LoginMb() {
     }
@@ -45,6 +47,8 @@ public class LoginMb implements Serializable {
                     } else {
                         this.senha = "";
                         this.advogado = new Advogado();
+                        this.juiz = new Juiz();
+                        this.parte = new Parte();
                         msg = SijogaUtil.emiteMsg("Usuario ou Senha Inválido!", 3);
                         ctx.addMessage(null, msg);
                     }
@@ -53,17 +57,33 @@ public class LoginMb implements Serializable {
                     this.juiz.setSenha(Seguranca.md5(this.senha));
                     this.juiz.setEmail(this.email);
                     this.juiz = LoginFacade.loginJuiz(this.juiz);
-                    
+
                     if (this.juiz != null) {
                         ctxExt.redirect(ctxExt.getRequestContextPath() + "/Juiz/InicioJuiz.jsf");
                     } else {
                         this.senha = "";
                         this.advogado = new Advogado();
+                        this.juiz = new Juiz();
+                        this.parte = new Parte();
                         msg = SijogaUtil.emiteMsg("Usuario ou Senha Inválido!", 3);
                         ctx.addMessage(null, msg);
-                    }                                        
+                    }
                     break;
                 case 3:
+                    this.parte.setSenha(Seguranca.md5(this.senha));
+                    this.parte.setEmail(this.email);
+                    this.parte = LoginFacade.loginParte(this.parte);
+
+                    if (this.parte != null) {
+                        ctxExt.redirect(ctxExt.getRequestContextPath() + "/Parte/InicioParte.jsf");
+                    } else {
+                        this.senha = "";
+                        this.advogado = new Advogado();
+                        this.juiz = new Juiz();
+                        this.parte = new Parte();
+                        msg = SijogaUtil.emiteMsg("Usuario ou Senha Inválido!", 3);
+                        ctx.addMessage(null, msg);
+                    }
                     break;
             }
         } catch (Exception e) {
@@ -78,7 +98,7 @@ public class LoginMb implements Serializable {
     public void logout() {
         try {
             ExternalContext ctxExt = FacesContext.getCurrentInstance().getExternalContext();
-            if ((this.advogado.getId() != 0) || (this.juiz.getId() != 0)) {
+            if ((this.advogado.getId() != 0) || (this.juiz.getId() != 0) || (this.parte.getId() != 0)) {
                 ctxExt.invalidateSession();
                 ctxExt.redirect(ctxExt.getRequestContextPath() + "/index.jsf");
             }
@@ -129,5 +149,13 @@ public class LoginMb implements Serializable {
 
     public void setJuiz(Juiz juiz) {
         this.juiz = juiz;
+    }
+
+    public Parte getParte() {
+        return parte;
+    }
+
+    public void setParte(Parte parte) {
+        this.parte = parte;
     }
 }

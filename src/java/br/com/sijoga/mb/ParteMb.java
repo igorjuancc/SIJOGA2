@@ -3,8 +3,10 @@ package br.com.sijoga.mb;
 import br.com.sijoga.bean.Endereco;
 import br.com.sijoga.bean.Estado;
 import br.com.sijoga.bean.Parte;
+import br.com.sijoga.bean.Processo;
 import br.com.sijoga.facade.CidadeFacade;
 import br.com.sijoga.facade.ParteFacade;
+import br.com.sijoga.facade.ProcessoFacade;
 import br.com.sijoga.util.SijogaUtil;
 import java.io.IOException;
 import java.io.Serializable;
@@ -13,30 +15,38 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
-@ManagedBean
-@Named(value = "parteMb")
+@Named
 @ViewScoped
 public class ParteMb implements Serializable {
     
+    @Inject
+    private LoginMb login;
     private String confirmaSenha;
     private Boolean cadastroConcluido;
     private Parte parte;
     private List<Estado> estados;
     private Estado estadoSelect;
+    private List<Processo> processos;
 
     @PostConstruct
     public void init() {
         try {
-            this.parte = new Parte();
-            this.parte.setEndereco(new Endereco());
-            this.estados = CidadeFacade.listaEstado();
-            this.estadoSelect = this.estados.get(0);
-            this.estadoSelect.setCidades(CidadeFacade.listaCidadePorEstado(this.estadoSelect));
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            if (ctx.getViewRoot().getViewId().equals("/Parte/InicioParte.xhtml")) {
+                this.processos = ProcessoFacade.listaTodosProcessosParte(this.login.getParte());
+            } else {
+                this.parte = new Parte();
+                this.parte.setEndereco(new Endereco());
+                this.estados = CidadeFacade.listaEstado();
+                this.estadoSelect = this.estados.get(0);
+                this.estadoSelect.setCidades(CidadeFacade.listaCidadePorEstado(this.estadoSelect));
+            }
         } catch (Exception e) {
             try {
                 SijogaUtil.mensagemErroRedirecionamento(e);
@@ -73,17 +83,35 @@ public class ParteMb implements Serializable {
             }
         }
     }
-    
+
     public void buscaCidadePorEstado() {
         try {
-            this.estadoSelect.setCidades(CidadeFacade.listaCidadePorEstado(this.estadoSelect));                        
+            this.estadoSelect.setCidades(CidadeFacade.listaCidadePorEstado(this.estadoSelect));
         } catch (Exception e) {
             try {
                 SijogaUtil.mensagemErroRedirecionamento(e);
             } catch (IOException ex) {
                 Logger.getLogger(ParteMb.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }        
+        }
+    }
+    
+    public void verProcesso(int id) {
+        try {
+            ExternalContext ctxExt = FacesContext.getCurrentInstance().getExternalContext();
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("idProcesso", id);
+            ctxExt.redirect(ctxExt.getRequestContextPath() + "/Parte/VisualizarProcesso.jsf");
+        } catch (Exception e) {
+            try {
+                SijogaUtil.mensagemErroRedirecionamento(e);
+            } catch (IOException ex) {
+                Logger.getLogger(AdvogadoMb.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public String printStatusProcesso(Processo p) {
+        return SijogaUtil.printStatusProcesso(p);
     }
 
     public String getConfirmaSenha() {
@@ -124,5 +152,21 @@ public class ParteMb implements Serializable {
 
     public void setEstadoSelect(Estado estadoSelect) {
         this.estadoSelect = estadoSelect;
+    }
+
+    public List<Processo> getProcessos() {
+        return processos;
+    }
+
+    public void setProcessos(List<Processo> processos) {
+        this.processos = processos;
+    }
+
+    public LoginMb getLogin() {
+        return login;
+    }
+
+    public void setLogin(LoginMb login) {
+        this.login = login;
     }
 }

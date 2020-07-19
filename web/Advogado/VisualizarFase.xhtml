@@ -15,6 +15,7 @@
             <main role="main" class="col-md-9 col-lg-8 px-5"><br/>
                 <div id="titulo">
                     <h1>Fase #{processoMb.processo.fases.indexOf(processoMb.faseProcesso)+1}</h1>
+                    <h3>Processo #{processoMb.processo.id}</h3>
                 </div>
                 <div id="fase">
                     <h:form>
@@ -39,12 +40,14 @@
                                     <td>Lorem Ipsum</td>
                                 </tr>
 
-                                <tr>
-                                    <th scope="row">Arquivos</th>
-                                    <td><a href="docs/tarefa1.pdf" type="download">
-                                            <img src="img/download.png" alt="processo" width="50" height="50"/>
-                                        </a></td>
-                                </tr>
+                                <p:outputPanel rendered="#{processoMb.faseProcesso.documento != null}">
+                                    <tr>
+                                        <th scope="row">Arquivo anexo fase</th>
+                                        <td><a href="../Documentos/#{processoMb.faseProcesso.documento.id}#{processoMb.faseProcesso.documento.extensao}" type="download">
+                                                <img src="../img/download.png" alt="processo" width="50" height="50"/>
+                                            </a></td>
+                                    </tr>                                    
+                                </p:outputPanel> 
                                 
                                 <tr>
                                     <th scope="row">Fases</th>

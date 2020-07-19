@@ -104,6 +104,16 @@ public class ProcessoMb implements Serializable {
                         this.intimado = new Parte();
                     }
                     break;
+                case "/Parte/VisualizarProcesso.xhtml":
+                    if (FacesContext.getCurrentInstance().getExternalContext().getFlash().get("idProcesso") == null) {
+                        FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/Parte/InicioParte.jsf");
+                    } else {
+                        int idProcesso = (int) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("idProcesso");
+                        this.processo = ProcessoFacade.buscaProcessoId(idProcesso);
+                        this.faseProcesso = this.processo.getFases().get(this.processo.getFases().size() - 1);
+                        this.oficiais = IntimacaoFacade.listaOficiais();
+                    }
+                    break;
             }
         } catch (Exception e) {
             try {

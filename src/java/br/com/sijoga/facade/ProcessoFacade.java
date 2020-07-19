@@ -3,6 +3,7 @@ package br.com.sijoga.facade;
 import br.com.sijoga.bean.Advogado;
 import br.com.sijoga.bean.FaseProcesso;
 import br.com.sijoga.bean.Juiz;
+import br.com.sijoga.bean.Parte;
 import br.com.sijoga.bean.Processo;
 import br.com.sijoga.dao.ProcessoDao;
 import br.com.sijoga.exception.DaoException;
@@ -168,6 +169,20 @@ public class ProcessoFacade {
             throw e;
         } catch (Exception e) {
             System.out.println("****Problema ao listar processos de juiz [Facade]****" + e);
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    
+    public static List<Processo> listaTodosProcessosParte(Parte parte) throws DaoException {
+        try {
+            return processoDao.listaTodosProcessosParte(parte);
+        } catch (DaoException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            System.out.println("****Problema ao listar processos de parte [Facade]****" + e);
             e.printStackTrace();
             throw e;
         }

@@ -29,6 +29,8 @@ public class VerificaLogin implements PhaseListener {
                 opcCase = 1;
             } else if (usuario.getJuiz().getId() != 0) {
                 opcCase = 2;                
+            } else if (usuario.getParte().getId() != 0) {
+                opcCase = 3;                
             }
 
             switch (opcCase) {
@@ -44,8 +46,13 @@ public class VerificaLogin implements PhaseListener {
                     }
                     break;
                 case 2:
-                    if ((!pagina.equals("/Juiz/InicioJuiz.xhtml")) && (!pagina.equals("/Juiz/VisualizarProcesso.xhtml"))) {
+                    if ((!pagina.equals("/Juiz/InicioJuiz.xhtml")) && (!pagina.equals("/Juiz/VisualizarProcesso.xhtml")) && (!pagina.equals("/ErroPage.xhtml"))) {
                         ctxExt.redirect(ctxExt.getRequestContextPath() + "/Juiz/InicioJuiz.jsf");                        
+                    }
+                    break;
+                case 3:
+                    if ((!pagina.equals("/Parte/InicioParte.xhtml")) && (!pagina.equals("/Parte/VisualizarProcesso.xhtml")) && (!pagina.equals("/ErroPage.xhtml"))) {
+                        ctxExt.redirect(ctxExt.getRequestContextPath() + "/Parte/InicioParte.jsf");                        
                     }
                     break;
             }

@@ -7,6 +7,7 @@ package br.com.sijoga.facade;
 
 import br.com.sijoga.bean.Advogado;
 import br.com.sijoga.bean.Juiz;
+import br.com.sijoga.bean.Parte;
 import br.com.sijoga.dao.LoginDao;
 import br.com.sijoga.exception.DaoException;
 import br.com.sijoga.util.Seguranca;
@@ -45,6 +46,24 @@ public class LoginFacade {
             throw e;
         } catch (Exception e) {
             System.out.println("****Problemas ao efetuar login de juiz [Facade]****" + e);
+            e.printStackTrace();
+            throw e;
+        }
+    }    
+    
+    public static Parte loginParte(Parte parte) throws DaoException {
+        try {
+            if (!Seguranca.isEmail(parte.getEmail()) || parte.getSenha() == null) {
+                return null;                
+            } else {
+                return loginDao.loginParte(parte);                
+            }            
+        } catch (DaoException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            System.out.println("****Problemas ao efetuar login de parte [Facade]****" + e);
             e.printStackTrace();
             throw e;
         }

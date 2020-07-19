@@ -2,6 +2,7 @@ package br.com.sijoga.dao;
 
 import br.com.sijoga.bean.Advogado;
 import br.com.sijoga.bean.Juiz;
+import br.com.sijoga.bean.Parte;
 import br.com.sijoga.bean.Processo;
 import br.com.sijoga.exception.DaoException;
 import br.com.sijoga.util.HibernateUtil;
@@ -83,6 +84,26 @@ public class ProcessoDao {
             throw new DaoException("****Problema ao listar processos de juiz [Hibernate]****", e);
         } catch (Exception e) {
             throw new DaoException("****Problema ao listar processos de juiz [DAO]****", e);
+        }
+    }
+    
+    public List<Processo> listaTodosProcessosParte(Parte parte) throws DaoException {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            try {
+                session.beginTransaction();
+                Query select = session.createQuery("SELECT p FROM Processo p JOIN p.promovente p1 JOIN p.promovido p2 WHERE (p1.id = :idParte OR p2.id = :idParte) AND p.vencedor = NULL ORDER BY p.dataInicio ASC");
+                select.setParameter("idParte", parte.getId());
+                List<Processo> processos = select.list();
+                return processos;
+            } finally {
+                session.getTransaction().commit();
+                session.close();
+            }
+        } catch (HibernateException e) {
+            throw new DaoException("****Problema ao listar processos de parte [Hibernate]****", e);
+        } catch (Exception e) {
+            throw new DaoException("****Problema ao listar processos de parte [DAO]****", e);
         }
     }
     

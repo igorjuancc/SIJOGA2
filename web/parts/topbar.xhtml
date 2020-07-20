@@ -30,7 +30,7 @@
                 <!-- <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
                 </a>   -->
-                <p:commandButton type="button" icon="ui-icon-extlink">
+                <p:commandButton type="button" styleClass="btn btn-danger" icon="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-white-400">
                     <p:ajax event="click" listener="#{loginMb.logout}" />
                     <p:confirm header="Sair" message="Sair do sistema?" />                    
                 </p:commandButton>

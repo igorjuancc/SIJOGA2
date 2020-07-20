@@ -9,10 +9,10 @@
         <h:form id="formJuiz">
             <p:panel id="panelPrincipal" class="boxCadastro" rendered="#{!juizMb.cadastroConcluido}">
                 <div class="ui-g">
-                    <dir class="ui-g-12">
+                    <div class="ui-g-12">
                         <p:messages id="mensagem"  showDetail="false" /> 
                         <h2>Cadastro Juiz</h2>                        
-                    </dir> 
+                    </div> 
                     <div class="ui-g-12"><h3>Dados Pessoais</h3></div>
                     <div class="col-md-5">
                         <p:outputLabel for="nome" value="Nome" /><br />
@@ -114,6 +114,7 @@
                             <p:confirm header="Cancelar" message="Cancelar cadastro de juiz?" />
                         </p:commandButton>
                         <p:commandButton styleClass="btn btn-dark" value="Salvar" actionListener="#{juizMb.cadastrarJuiz}" update="formJuiz">
+
                             <p:confirm header="Salvar" message="Salvar novo juiz?"  />
                         </p:commandButton>
                     </div>

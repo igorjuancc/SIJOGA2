@@ -40,7 +40,7 @@ public class VerificaLogin implements PhaseListener {
                     }
                     break;
                 case 1:
-                    if ((!pagina.equals("/Advogado/InicioAdvogado.xhtml")) && (!pagina.equals("/Advogado/CadastroCliente.xhtml")) && (!pagina.equals("/Advogado/CadastroProcesso.xhtml")) && (!pagina.equals("/Advogado/VisualizarProcesso.xhtml"))
+                    if ((!pagina.equals("/Advogado/InicioAdvogado.xhtml")) && (!pagina.equals("/Advogado/CadastroCliente.xhtml")) && (!pagina.equals("/Advogado/RelatorioAdvogado.xhtml")) && (!pagina.equals("/Advogado/CadastroProcesso.xhtml")) && (!pagina.equals("/Advogado/VisualizarProcesso.xhtml"))
                          && (!pagina.equals("/Advogado/VisualizarFase.xhtml")) && (!pagina.equals("/Advogado/NovaFase.xhtml")) && (!pagina.equals("/ErroPage.xhtml"))) {
                         ctxExt.redirect(ctxExt.getRequestContextPath() + "/Advogado/InicioAdvogado.jsf");
                     }

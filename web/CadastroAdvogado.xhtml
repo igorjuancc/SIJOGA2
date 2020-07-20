@@ -14,22 +14,22 @@
                         <h2>Cadastro Advogado</h2>                        
                     </dir> 
                     <div class="ui-g-12"><h3>Dados Pessoais</h3></div>
-                        <div class="col-md-5">
-                            <p:outputLabel for="nome" value="Nome" /><br />
-                            <p:inputText styleClass="form-control" value="#{advogadoMb.advogado.nome}" id="nome" required="true" style="width: 34.2vw" requiredMessage="Digite o nome" validatorMessage="Insira um nome válido">
-                                <f:validateRegex pattern="[a-z A-Z]{6,100}"/>                    
-                            </p:inputText>   
-                        </div>
+                    <div class="col-md-5">
+                        <p:outputLabel for="nome" value="Nome" /><br />
+                        <p:inputText styleClass="form-control" value="#{advogadoMb.advogado.nome}" id="nome" required="true" style="width: 34.2vw" requiredMessage="Digite o nome" validatorMessage="Insira um nome válido">
+                            <f:validateRegex pattern="[a-z A-Z]{6,100}"/>                    
+                        </p:inputText>   
+                    </div>
                     <div class="col-md-3">
                         <p:outputLabel for="dataNascimento" value="Data de Nascimento" /><br />
                         <p:datePicker  id="dataNascimento" value="#{advogadoMb.advogado.dataNascimento}" required="true" requiredMessage="Insira a data de nascimento" />                                      
                     </div>            
-                        <div class="col-md-5">
-                            <p:outputLabel  for="cpf" value="CPF" /><br />
-                            <p:inputMask styleClass="form-control" id="cpf" value="#{advogadoMb.advogado.cpf}" mask="999.999.999-99" required="true" style="width: 34.2vw" requiredMessage="Digite o CPF" > 
+                    <div class="col-md-5">
+                        <p:outputLabel  for="cpf" value="CPF" /><br />
+                        <p:inputMask styleClass="form-control" id="cpf" value="#{advogadoMb.advogado.cpf}" mask="999.999.999-99" required="true" style="width: 34.2vw" requiredMessage="Digite o CPF" > 
 
-                            </p:inputMask>
-                        </div>
+                        </p:inputMask>
+                    </div>
                     <div class="col-md-3">
                         <p:outputLabel for="sexo" value="Sexo" /><br />
                         <p:selectOneRadio id="sexo" value="#{advogadoMb.advogado.sexo}" unselectable="false" required="true">
@@ -38,12 +38,12 @@
                         </p:selectOneRadio>               
                     </div> 
                     <div class="ui-g-12"><h3>Contato</h3></div> 
-                        <div class="col-md-5">
-                            <p:outputLabel for="email" value="Email" /><br />
-                            <p:inputText styleClass="form-control" id="email" value="#{advogadoMb.advogado.email}" required="true" requiredMessage="Digite o email" style="width: 34.2vw" validatorMessage="Insira um email válido">                                     
-                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />                        
-                            </p:inputText>
-                        </div>
+                    <div class="col-md-5">
+                        <p:outputLabel for="email" value="Email" /><br />
+                        <p:inputText styleClass="form-control" id="email" value="#{advogadoMb.advogado.email}" required="true" requiredMessage="Digite o email" style="width: 34.2vw" validatorMessage="Insira um email válido">                                     
+                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />                        
+                        </p:inputText>
+                    </div>
                     <div class="col-md-3">
                         <p:outputLabel for="fone" value="Fone" /><br />
                         <p:inputMask styleClass="form-control" id="fone" value="#{advogadoMb.advogado.fone}" mask="(99)99999-9999"/> 
@@ -115,12 +115,13 @@
                     </div>
 
                     <div class="ui-g-12 col-md-5" style="text-align: center; padding-top: 50px">
-                            <p:commandButton styleClass="btn btn-dark" value="Cancelar">
-                                <p:confirm header="Cancelar" message="Cancelar cadastro de advogado?" />
-                            </p:commandButton>
-                            <p:commandButton styleClass="btn btn-dark" value="Salvar" actionListener="#{advogadoMb.cadastrarAdvogado}" update="formAdvogado">
-                                <p:confirm header="Salvar" message="Salvar novo advogado?"  />
-                            </p:commandButton>
+                        <p:commandButton styleClass="btn btn-dark" value="Cancelar" type="button">
+                            <p:ajax event="click" listener="#{advogadoMb.redirecionar}" />                            
+                            <p:confirm header="Cancelar" message="Cancelar cadastro de advogado?" />
+                        </p:commandButton>
+                        <p:commandButton styleClass="btn btn-dark" value="Salvar" actionListener="#{advogadoMb.cadastrarAdvogado}" update="formAdvogado">
+                            <p:confirm header="Salvar" message="Salvar novo advogado?"  />
+                        </p:commandButton>
                     </div>
 
                 </div>                

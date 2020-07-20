@@ -110,7 +110,8 @@
                     </div>
                     <div class="ui-g-12 col-md-5" style="text-align: center; padding-top: 50px">
                         <br />
-                        <p:commandButton styleClass="btn btn-dark" value="Cancelar">
+                        <p:commandButton styleClass="btn btn-dark" value="Cancelar" type="button">
+                            <p:ajax event="click" listener="#{juizMb.redirecionar}" /> 
                             <p:confirm header="Cancelar" message="Cancelar cadastro de juiz?" />
                         </p:commandButton>
                         <p:commandButton styleClass="btn btn-dark" value="Salvar" actionListener="#{juizMb.cadastrarJuiz}" update="formJuiz">

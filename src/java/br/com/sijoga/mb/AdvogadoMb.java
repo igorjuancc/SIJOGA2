@@ -145,6 +145,19 @@ public class AdvogadoMb implements Serializable {
         }
     }
     
+    public void redirecionar() {
+        try {
+            ExternalContext ctxExt = FacesContext.getCurrentInstance().getExternalContext();
+            ctxExt.redirect(ctxExt.getRequestContextPath() + "/index.jsf");
+        } catch (Exception e) {
+            try {
+                SijogaUtil.mensagemErroRedirecionamento(e);
+            } catch (IOException ex) {
+                Logger.getLogger(AdvogadoMb.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
     public void novaFase(int id) {
         try {
             ExternalContext ctxExt = FacesContext.getCurrentInstance().getExternalContext();

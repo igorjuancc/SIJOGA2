@@ -125,7 +125,7 @@
                                 <h:outputLabel rendered="#{processoMb.processo.vencedor == null}">
                                     <tr style=" text-align: center">
                                         <td>
-                                            <p:commandButton style=" font-size: medium" value="Intimação">
+                                            <p:commandButton style=" font-size: medium" value="Intimação" disabled="#{processoMb.printStatusProcesso(processoMb.processo) == 'FASE DELIBERATIVA'}">
                                                 <p:ajax event="click" listener="#{processoMb.setRenderJuiz(3)}" update="dialogProcesso" oncomplete="PF('dialogProcesso').show()" />
                                             </p:commandButton>  
                                         </td>                                        
